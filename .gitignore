@@ -1,5 +1,7 @@
 *.class
 *.log
+logs
+tmp
 
 # sbt specific
 .cache/
@@ -11,6 +13,9 @@ lib_managed/
 src_managed/
 project/boot/
 project/plugins/project/
+project/project
+project/target
+/out
 
 # Scala-IDE specific
 .scala_dependencies
@@ -38,3 +43,13 @@ project/plugins/project/
 # P4Merge specific
 .orig
 
+# Intellij specific
+/.idea
+/*.iml
+/.idea_modules
+
+# Eclipse specific
+/.classpath
+/.project
+/RUNNING_PID
+/.settings
