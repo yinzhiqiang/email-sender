@@ -1,11 +1,11 @@
-package com.example
+package me.coocoon
 
 import org.specs2.mutable.Specification
-import spray.testkit.Specs2RouteTest
+import spray.http.StatusCodes._
 import spray.http._
-import StatusCodes._
+import spray.testkit.Specs2RouteTest
 
-class MyServiceSpec extends Specification with Specs2RouteTest with MyService {
+class EMailSenderServiceSpec extends Specification with Specs2RouteTest with RestService {
   def actorRefFactory = system
   
   "MyService" should {
