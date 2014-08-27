@@ -16,6 +16,8 @@ project/plugins/project/
 project/project
 project/target
 /out
+/test-output
+.classpath_nb
 
 # Scala-IDE specific
 .scala_dependencies
