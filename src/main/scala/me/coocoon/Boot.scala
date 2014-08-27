@@ -20,5 +20,5 @@ val service = system.actorOf(Props[EMailSenderServiceActor], "email-sender-servi
 
 implicit val timeout = Timeout(5.seconds)
 // start a new HTTP server with our service actor as the handler
-IO(Http) ? Http.Bind(service, interface = Configuration.host, port = Configuration.portHttp)
+IO(Http) ? Http.Bind(service, interface = Configuration.serverHost, port = Configuration.portHttp)
 }
