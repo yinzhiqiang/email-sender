@@ -1,4 +1,4 @@
-package me.coocoon
+package me.coocoon.msa
 
 import com.typesafe.config.ConfigFactory
 

@@ -1,10 +1,11 @@
-package me.coocoon
+package me.coocoon.msa
 
 import akka.actor.{ActorSystem, Props}
 import akka.io.IO
-import spray.can.Http
 import akka.pattern.ask
 import akka.util.Timeout
+import spray.can.Http
+
 import scala.concurrent.duration._
 
 /**

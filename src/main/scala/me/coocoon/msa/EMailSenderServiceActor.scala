@@ -1,10 +1,12 @@
-package me.coocoon
+package me.coocoon.msa
 
 import akka.actor.Actor
 import org.json4s.DefaultFormats
+import shapeless.get
 import spray.http.MediaTypes._
 import spray.httpx.Json4sSupport
 import spray.routing.HttpService
+
 
 /**
  * Created by zyin on 8/27/2014.
