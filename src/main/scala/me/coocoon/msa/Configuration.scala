@@ -13,4 +13,9 @@ object Configuration {
   val serverPath = config.getString("app.server.path")
   val portHttp = config.getInt("app.server.ports.http")
 
+  val mailServerHost = config.getString("app.email.server.host")
+  val mailServerPort = config.getInt("app.email.server.port")
+  val mailServerNeedAuth = config.getBoolean("app.email.server.auth")
+  val mailServerNeedTtls = config.getBoolean("app.email.server.ttls")
+
 }

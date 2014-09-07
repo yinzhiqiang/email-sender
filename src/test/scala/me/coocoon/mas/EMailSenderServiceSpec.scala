@@ -12,19 +12,21 @@ class EMailSenderServiceSpec extends Specification with Specs2RouteTest with Res
   "MyService" should {
 
     "return a greeting for GET requests to the root path" in {
-      Get() ~> myRoute ~> check {
+      Get("/es") ~> myRoute ~> check {
         responseAs[JObject] must not beNull
       }
     }
 
     "leave GET requests to other paths unhandled" in {
-      Get("/kermit") ~> myRoute ~> check {
+      Get("/es/kermit") ~> myRoute ~> check {
         handled must beFalse
       }
     }
 
+
+
     "return a MethodNotAllowed error for PUT requests to the root path" in {
-      Put() ~> sealRoute(myRoute) ~> check {
+      Put("/es") ~> sealRoute(myRoute) ~> check {
         status === MethodNotAllowed
         //responseAs[String] === "HTTP method not allowed, supported methods: GET"
       }

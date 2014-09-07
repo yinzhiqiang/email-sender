@@ -29,7 +29,7 @@ trait RestService extends HttpService with Json4sSupport{
   override implicit def json4sFormats = DefaultFormats
   var test = ("test1","test2")
   val myRoute =
-    path("") {
+    path("es") {
       get {
         respondWithMediaType(`application/json`) {
           complete {
