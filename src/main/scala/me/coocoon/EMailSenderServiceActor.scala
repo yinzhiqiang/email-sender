@@ -1,6 +1,7 @@
 package me.coocoon
 
 import akka.actor.Actor
+import org.json4s.DefaultFormats
 import spray.http.MediaTypes._
 import spray.httpx.Json4sSupport
 import spray.routing.HttpService
@@ -24,16 +25,13 @@ class EMailSenderServiceActor extends Actor with RestService  {
 // this trait defines our service behavior independently from the service actor
 trait RestService extends HttpService with Json4sSupport{
   override implicit def json4sFormats = DefaultFormats
+  var test = ("test1","test2")
   val myRoute =
     path("") {
       get {
-        respondWithMediaType(`text/html`) {
+        respondWithMediaType(`application/json`) {
           complete {
-            <html>
-              <body>
-                <h1>Say hello to <i> Email Send Service</i> on <i>spray-can</i>!!!</h1>
-              </body>
-            </html>
+           test
           }
         }
       }
