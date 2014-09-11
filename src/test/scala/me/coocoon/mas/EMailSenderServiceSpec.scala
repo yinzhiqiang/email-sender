@@ -9,11 +9,11 @@ import spray.testkit.Specs2RouteTest
 class EMailSenderServiceSpec extends Specification with Specs2RouteTest with RestService {
   def actorRefFactory = system
   
-  "MyService" should {
+  "EMailSenderService" should {
 
     "return a greeting for GET requests to the root path" in {
       Get("/es") ~> myRoute ~> check {
-        responseAs[JObject] must not beNull
+        responseAs[String] must contain("email-sender")
       }
     }
 
