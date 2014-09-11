@@ -25,15 +25,35 @@ class EMailSenderServiceActor extends Actor with RestService  {
 }
 
 // this trait defines our service behavior independently from the service actor
-trait RestService extends HttpService with Json4sSupport{
-  override implicit def json4sFormats = DefaultFormats
+trait RestService extends HttpService{
+ // with Json4sSupport
+ // override implicit def json4sFormats = DefaultFormats
   var test = ("test1","test2")
   val myRoute =
     path("es") {
       get {
-        respondWithMediaType(`application/json`) {
+        respondWithMediaType(`text/html`) { // XML is marshalled to `text/xml` by default, so we simply override here
           complete {
-           test
+            <html>
+              <body>
+                <h1>Semail-sender!</h1>
+              </body>
+            </html>
+          }
+        }
+      }~
+      post {
+        // decompresses the request with Gzip or Deflate when required
+        decompressRequest() {
+          // unmarshal with in-scope unmarshaller
+          entity(as[String]) { order =>
+            // transfer to newly spawned actor
+            detach() {
+              complete {
+                // ... write order to DB
+                "Order received"
+              }
+            }
           }
         }
       }

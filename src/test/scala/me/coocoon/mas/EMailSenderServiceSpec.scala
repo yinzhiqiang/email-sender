@@ -13,7 +13,7 @@ class EMailSenderServiceSpec extends Specification with Specs2RouteTest with Res
 
     "return a greeting for GET requests to the root path" in {
       Get("/es") ~> myRoute ~> check {
-        responseAs[JObject] must not beNull
+        responseAs[String] must contain("email-sender")
       }
     }
 
