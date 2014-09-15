@@ -36,7 +36,6 @@ class EMailSender(username:String,password:String) {
       case _ => println("delivered report")
     }
 
-
   }
 
 }

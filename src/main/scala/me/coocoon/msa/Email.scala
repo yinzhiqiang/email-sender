@@ -1,7 +1,5 @@
 package me.coocoon.msa
 
-import javax.mail.internet.InternetAddress
-
 import me.coocoon.msa.EmailType.EmailType
 
 /**
@@ -54,8 +52,6 @@ class EMail(var to:String,var from:String,var subject:String,var body:String) {
       case _ => emailType$ = EmailType.TEXT
     }
   }
-
-
 
 }
 
