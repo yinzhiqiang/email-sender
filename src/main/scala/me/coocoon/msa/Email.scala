@@ -7,49 +7,49 @@ import me.coocoon.msa.EmailType.EmailType
  */
 class EMail(var to:String,var from:String,var subject:String,var body:String) {
 
-  private var cc$:Option[String] = None
-  private var bcc$:Option[String] = None
-  private var username$:Option[String] = None
-  private var paasword$:Option[String] = None
-  private var emailType$:EmailType = EmailType.TEXT
+  private var _cc:Option[String] = None
+  private var _bcc:Option[String] = None
+  private var _username:Option[String] = None
+  private var _paasword:Option[String] = None
+  private var _emailType:EmailType = EmailType.TEXT
 
-  def cc= cc$
+  def cc= _cc
   def cc_=(value: String) {
     value match {
-      case value if !(value.isEmpty) =>  cc$ = Option(value)
-      case _ => cc$ = None
+      case value if !(value.isEmpty) =>  _cc = Option(value)
+      case _ => _cc = None
     }
   }
 
-  def bcc= bcc$
+  def bcc= _bcc
   def bcc_=(value: String) {
     value match {
-      case value if !(value.isEmpty) =>  bcc$ = Option(value)
-      case _ => bcc$ = None
+      case value if !(value.isEmpty) =>  _bcc = Option(value)
+      case _ => _bcc = None
     }
   }
 
-  def username= username$
+  def username= _username
   def username_=(value: String) {
     value match {
-      case value if !(value.isEmpty) =>  username$ = Option(value)
-      case _ => username$ = None
+      case value if !(value.isEmpty) =>  _username = Option(value)
+      case _ => _username = None
     }
   }
 
-  def paasword= paasword$
+  def paasword= _paasword
   def paasword_=(value: String) {
     value match {
-      case value if !(value.isEmpty) =>  paasword$ = Option(value)
-      case _ => paasword$ = None
+      case value if !(value.isEmpty) =>  _paasword = Option(value)
+      case _ => _paasword = None
     }
   }
 
-  def emailType= emailType$
+  def emailType= _emailType
   def emailType_=(value: EmailType) {
     value match {
-      case value if value != null =>  emailType$ = value
-      case _ => emailType$ = EmailType.TEXT
+      case value if value != null =>  _emailType = value
+      case _ => _emailType = EmailType.TEXT
     }
   }
 
