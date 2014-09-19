@@ -23,11 +23,18 @@ libraryDependencies ++= {
     "me.lessis" %% "courier" % "0.1.3" withSources(),//https://github.com/softprops/courier
     "io.spray" % "spray-testkit" % sprayV % "test" ,
     "com.typesafe.akka" %% "akka-testkit" % akkaV % "test" ,
-    "com.icegreen" % "greenmail" % "1.3.1b" withSources(),
     "org.jvnet.mock-javamail" % "mock-javamail" % "1.9" % "test",
     "org.specs2" %% "specs2-core" % "2.3.7" % "test"
   )
 }
 
 Revolver.settings
+
+scoverage.ScoverageSbtPlugin.instrumentSettings
+
+ScoverageKeys.minimumCoverage := 80
+
+ScoverageKeys.failOnMinimumCoverage := true
+
+org.scoverage.coveralls.CoverallsPlugin.coverallsSettings
 
