@@ -8,9 +8,9 @@ import org.specs2.mutable.Specification
  */
 class EMailSpec extends Specification {
 
-  "EMail" should {
+  "EMail object" should {
 
-    "can create email object and get correct data" in {
+    "can be created and get correct data" in {
       val to = "to@test.com"
       val from = "from@test.com"
       val subject = "subject"
@@ -32,7 +32,7 @@ class EMailSpec extends Specification {
 
     }
 
-    "can update email object and get modified data" in {
+    "can be updated and get modified data" in {
       var to = "to@test.com"
       var from = "from@test.com"
       var subject = "subject"

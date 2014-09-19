@@ -59,6 +59,7 @@ class EMailSender(username:Option[String],password:Option[String]) {
       case _ => println("message delivered")
     }
 
+
   }
 
   def convertToIntAddress(toStr: String):Array[InternetAddress] = {

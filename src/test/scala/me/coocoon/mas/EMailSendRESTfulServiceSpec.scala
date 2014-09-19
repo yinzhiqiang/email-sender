@@ -6,10 +6,10 @@ import org.specs2.mutable.Specification
 import spray.http.StatusCodes._
 import spray.testkit.Specs2RouteTest
 
-class EMailSenderServiceSpec extends Specification with Specs2RouteTest with RestService {
+class EMailSendRESTfulServiceSpec extends Specification with Specs2RouteTest with RestService {
   def actorRefFactory = system
   
-  "EMailSenderService" should {
+  "EMail Send RESTful Service" should {
 
     "return a greeting for GET requests to the root path" in {
       Get("/es") ~> myRoute ~> check {
