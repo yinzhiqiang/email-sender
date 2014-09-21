@@ -16,7 +16,7 @@ class EMail(var to:String,var from:String,var subject:String,var body:String) {
   def cc= _cc
   def cc_=(value: String) {
     value match {
-      case value if !(value.isEmpty) =>  _cc = Option(value)
+      case value if !(value == null||value.isEmpty) =>  _cc = Option(value)
       case _ => _cc = None
     }
   }
@@ -24,7 +24,7 @@ class EMail(var to:String,var from:String,var subject:String,var body:String) {
   def bcc= _bcc
   def bcc_=(value: String) {
     value match {
-      case value if !(value.isEmpty) =>  _bcc = Option(value)
+      case value if !(value == null||value.isEmpty) =>  _bcc = Option(value)
       case _ => _bcc = None
     }
   }
@@ -32,7 +32,7 @@ class EMail(var to:String,var from:String,var subject:String,var body:String) {
   def username= _username
   def username_=(value: String) {
     value match {
-      case value if !(value.isEmpty) =>  _username = Option(value)
+      case value if !(value == null||value.isEmpty) =>  _username = Option(value)
       case _ => _username = None
     }
   }
@@ -40,7 +40,7 @@ class EMail(var to:String,var from:String,var subject:String,var body:String) {
   def paasword= _paasword
   def paasword_=(value: String) {
     value match {
-      case value if !(value.isEmpty) =>  _paasword = Option(value)
+      case value if !(value == null||value.isEmpty) =>  _paasword = Option(value)
       case _ => _paasword = None
     }
   }

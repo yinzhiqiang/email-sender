@@ -82,6 +82,37 @@ class EMailSpec extends Specification {
       email.emailType mustEqual emailType
     }
 
+    "should get default value when set optional values to null" in {
+      val to = "to@test.com"
+      val from = "from@test.com"
+      val subject = "subject"
+      val body = "body"
+      var email = new EMail(to,from,subject,body)
+
+      email must beAnInstanceOf[EMail]
+      email.to mustEqual to
+      email.from mustEqual from
+      email.subject mustEqual subject
+      email.body mustEqual body
+
+      //default value check
+      email.cc=null
+      email.cc must beNone
+
+      email.bcc=null
+      email.bcc must beNone
+
+      email.username=null
+      email.username must beNone
+
+      email.paasword=null
+      email.paasword must beNone
+
+      email.emailType=null
+      email.emailType mustEqual EmailType.TEXT
+
+    }
+
 
   }
 
