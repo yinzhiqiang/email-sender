@@ -1,11 +1,10 @@
 package me.coocoon.msa
 
 import akka.actor.Actor
-import org.json4s.DefaultFormats
-import shapeless.get
 import spray.http.MediaTypes._
-import spray.httpx.Json4sSupport
 import spray.routing.HttpService
+import spray.httpx.SprayJsonSupport._
+import spray.json.DefaultJsonProtocol
 
 
 /**
@@ -24,11 +23,18 @@ class EMailSenderServiceActor extends Actor with RestService  {
 
 }
 
+case class EMail2(var to:String,var from:String,var subject:String,var body:String)
+
+object JsonImplicits extends DefaultJsonProtocol {
+  implicit val impEMail = jsonFormat4(EMail2)
+
+}
+
 // this trait defines our service behavior independently from the service actor
 trait RestService extends HttpService{
- // with Json4sSupport
- // override implicit def json4sFormats = DefaultFormats
-  var test = ("test1","test2")
+
+  import JsonImplicits._
+
   val myRoute =
     path("es") {
       get {
@@ -46,12 +52,15 @@ trait RestService extends HttpService{
         // decompresses the request with Gzip or Deflate when required
         decompressRequest() {
           // unmarshal with in-scope unmarshaller
-          entity(as[String]) { order =>
+          entity(as[EMail2]) { email =>
             // transfer to newly spawned actor
             detach() {
+              //ctx => ctx.complete("Response")
               complete {
-                // ... write order to DB
-                "Order received"
+                // send email
+
+                "email sent"+email.to
+
               }
             }
           }

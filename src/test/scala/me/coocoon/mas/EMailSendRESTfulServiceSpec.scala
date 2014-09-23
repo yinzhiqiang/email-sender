@@ -1,7 +1,6 @@
 package me.coocoon.mas
 
 import me.coocoon.msa.RestService
-import org.json4s.JObject
 import org.specs2.mutable.Specification
 import spray.http.StatusCodes._
 import spray.testkit.Specs2RouteTest
