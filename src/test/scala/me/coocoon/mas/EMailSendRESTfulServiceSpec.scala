@@ -22,8 +22,6 @@ class EMailSendRESTfulServiceSpec extends Specification with Specs2RouteTest wit
       }
     }
 
-
-
     "return a MethodNotAllowed error for PUT requests to the root path" in {
       Put("/es") ~> sealRoute(myRoute) ~> check {
         status === MethodNotAllowed

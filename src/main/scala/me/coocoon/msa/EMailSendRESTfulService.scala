@@ -23,11 +23,8 @@ class EMailSenderServiceActor extends Actor with RestService  {
 
 }
 
-case class EMail2(var to:String,var from:String,var subject:String,var body:String)
-
 object JsonImplicits extends DefaultJsonProtocol {
-  implicit val impEMail = jsonFormat4(EMail2)
-
+  implicit val impEMail = jsonFormat9(EMail)
 }
 
 // this trait defines our service behavior independently from the service actor
@@ -52,14 +49,28 @@ trait RestService extends HttpService{
         // decompresses the request with Gzip or Deflate when required
         decompressRequest() {
           // unmarshal with in-scope unmarshaller
-          entity(as[EMail2]) { email =>
+          entity(as[EMail]) { email =>
             // transfer to newly spawned actor
             detach() {
               //ctx => ctx.complete("Response")
+              var userName:Option[String] = None
+              if(email.userName==null){
+                userName = Some(email.userName)
+              }
+
+              var passWord:Option[String] = None
+              if(email.passWord==null){
+                passWord = Some(email.passWord)
+              }
+
+              val emailSender = new SMTPEMailSender(userName,passWord)
+
+              emailSender.send(email)
+
               complete {
                 // send email
 
-                "email sent"+email.to
+                "email sent to"+email.to
 
               }
             }
