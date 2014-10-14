@@ -7,9 +7,11 @@ import courier._, Defaults._
 /**
  * Created by zyin on 9/8/14.
  */
-class EMailSender(username:Option[String],password:Option[String]) {
+class SMTPEMailSender(username:Option[String],password:Option[String]) {
 
-
+  implicit class CaseInsensitiveRegex(sc: StringContext) {
+    def ci = ( "(?i)" + sc.parts.mkString ).r
+  }
 
   def send(email:EMail): Unit ={
     var session = Mailer(Configuration.mailServerHost, Configuration.mailServerPort).auth(Configuration.mailServerNeedAuth).startTtls(Configuration.mailServerNeedTtls)
@@ -34,25 +36,28 @@ class EMailSender(username:Option[String],password:Option[String]) {
       .to( convertToIntAddress(email.to):_*)
       .subject(email.subject)
     
-    if(email.cc != None){
-      envelope = envelope.cc(convertToIntAddress(email.cc.get):_*)
+    if(email.cc != null){
+      envelope = envelope.cc(convertToIntAddress(email.cc):_*)
     }
 
-    if(email.bcc != None){
-      envelope = envelope.bcc(convertToIntAddress(email.bcc.get):_*)
+    if(email.bcc != null){
+      envelope = envelope.bcc(convertToIntAddress(email.bcc):_*)
     }
 
-   email.emailType match {
+    def textEmail {
+      if (!email.body.isEmpty) {
+        envelope = envelope.content(Text(email.body))
+      }
+    }
 
-     case EmailType.HTML => {  if(!email.body.isEmpty){
-       envelope = envelope.content(Multipart().html(email.body))
-     }}
-     case EmailType.MULTIPART => {  if(!email.body.isEmpty){
-       envelope = envelope.content(Multipart().html(email.body))
-     }}
-     case _ => {  if(!email.body.isEmpty){
-       envelope = envelope.content(Text(email.body))
-     }}
+    def htmlEmail {
+      if (!email.body.isEmpty) {
+        envelope = envelope.content(Multipart().html(email.body))
+      }
+    }
+    email.emailType match {
+     case ci"html" => htmlEmail
+     case _ => textEmail
 
    }
     mailer(envelope).onSuccess {

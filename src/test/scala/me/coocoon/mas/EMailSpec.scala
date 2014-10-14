@@ -10,12 +10,12 @@ class EMailSpec extends Specification {
 
   "EMail object" should {
 
-    "can be created and get correct data" in {
+    "can be created and get correct data  with optional values set to null" in {
       val to = "to@test.com"
       val from = "from@test.com"
       val subject = "subject"
       val body = "body"
-      var email = new EMail(to,from,subject,body)
+      var email = EMail(to,from,subject,body,null,null,null,null,null)
 
       email must beAnInstanceOf[EMail]
       email.to mustEqual to
@@ -23,21 +23,25 @@ class EMailSpec extends Specification {
       email.subject mustEqual subject
       email.body mustEqual body
 
-      //default value check
-      email.cc must beNone
-      email.bcc must beNone
-      email.username must beNone
-      email.paasword must beNone
-      email.emailType mustEqual EmailType.TEXT
-
+      //optional value check
+      email.cc must beNull
+      email.bcc must beNull
+      email.userName must beNull
+      email.passWord must beNull
+      email.emailType must beNull
     }
 
-    "can be updated and get modified data" in {
-      var to = "to@test.com"
-      var from = "from@test.com"
-      var subject = "subject"
-      var body = "body"
-      var email = new EMail(to,from,subject,body)
+    "can be created and get correct data with optional values not set to null" in {
+      val to = "to@test.com"
+      val from = "from@test.com"
+      val subject = "subject"
+      val body = "body"
+      val cc ="cc@test.com"
+      val bcc ="bcc@test.com"
+      val userName ="userName"
+      val passWord ="passWord"
+      val emailType = "emailType"
+      var email = new EMail(to,from,subject,body,cc,bcc,userName,passWord,emailType)
 
       email must beAnInstanceOf[EMail]
       email.to mustEqual to
@@ -45,72 +49,12 @@ class EMailSpec extends Specification {
       email.subject mustEqual subject
       email.body mustEqual body
 
-      to = "to2@test.com"
-      email.to=to
-      email.to mustEqual to
-
-      from = "from2@test.com"
-      email.from=from
-      email.from mustEqual from
-
-      subject = "subject2@test.com"
-      email.subject=subject
-      email.subject mustEqual subject
-
-      body = "email body"
-      email.body=body
-      email.body mustEqual body
-
-      val cc: String = "cc@test.com"
-      email.cc=cc
-      email.cc.get mustEqual cc
-
-      val bcc: String = "bcc@test.com"
-      email.bcc=bcc
-      email.bcc.get mustEqual bcc
-
-      val username = "username"
-      email.username=username
-      email.username.get mustEqual username
-
-      val paasword = "paasword"
-      email.paasword=paasword
-      email.paasword.get mustEqual paasword
-
-      val emailType = EmailType.MULTIPART
-      email.emailType=emailType
+      //optional value check
+      email.cc mustEqual cc
+      email.bcc mustEqual bcc
+      email.userName mustEqual userName
+      email.passWord mustEqual passWord
       email.emailType mustEqual emailType
-    }
-
-    "should get default value when set optional values to null" in {
-      val to = "to@test.com"
-      val from = "from@test.com"
-      val subject = "subject"
-      val body = "body"
-      var email = new EMail(to,from,subject,body)
-
-      email must beAnInstanceOf[EMail]
-      email.to mustEqual to
-      email.from mustEqual from
-      email.subject mustEqual subject
-      email.body mustEqual body
-
-      //default value check
-      email.cc=null
-      email.cc must beNone
-
-      email.bcc=null
-      email.bcc must beNone
-
-      email.username=null
-      email.username must beNone
-
-      email.paasword=null
-      email.paasword must beNone
-
-      email.emailType=null
-      email.emailType mustEqual EmailType.TEXT
-
     }
 
 

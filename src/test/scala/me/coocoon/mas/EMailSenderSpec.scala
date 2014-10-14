@@ -1,6 +1,6 @@
 package me.coocoon.mas
 
-import me.coocoon.msa.{EMail, EMailSender}
+import me.coocoon.msa.{EMail, SMTPEMailSender}
 import org.jvnet.mock_javamail.Mailbox
 import org.specs2.mutable.Specification
 import org.specs2.time.NoTimeConversions
@@ -17,13 +17,13 @@ class EMailSenderSpec extends Specification  with NoTimeConversions {
   "EMail sender " should {
 
     "can  send text email" in {
-      val emailSender = new EMailSender(Option("user"),Option("password"))
+      val emailSender = new SMTPEMailSender(Option("user"),Option("password"))
       val body: String = "body"
       val subject: String = "subject"
-      val email = new EMail("to@localhost.com", "from@localhost.com", subject, body)
+      val email = new EMail("to@localhost.com", "from@localhost.com", subject, body,null,null,null,null,null)
       emailSender.send(email)
 
-      Thread sleep 1000
+      //Thread sleep 1000
 
       val momsInbox = Mailbox.get("to@localhost.com")
       momsInbox.size() mustEqual 1
@@ -35,17 +35,16 @@ class EMailSenderSpec extends Specification  with NoTimeConversions {
     }
 
     "can cc text email" in {
-      val emailSender = new EMailSender(Option("user"),Option("password"))
+      val emailSender = new SMTPEMailSender(Option("user"),Option("password"))
       val body: String = "body"
       val subject: String = "subject"
-      val email = new EMail("to2@localhost.com", "from@localhost.com", subject, body)
-      email.cc="cc@localhost.com"
+      val cc: String = "cc@localhost.com"
+      val email = new EMail("to2@localhost.com", "from@localhost.com", subject,body, cc,null,null,null,null)
       emailSender.send(email)
 
+     // Thread sleep 1000
 
-      Thread sleep 1000
-
-      val momsInbox = Mailbox.get("cc@localhost.com")
+      val momsInbox = Mailbox.get(cc)
       momsInbox.size() mustEqual 1
       val momsMsg = momsInbox.get(0)
 
@@ -56,17 +55,16 @@ class EMailSenderSpec extends Specification  with NoTimeConversions {
     }
 
     "can bcc text email" in {
-      val emailSender = new EMailSender(Option("user"),Option("password"))
+      val emailSender = new SMTPEMailSender(Option("user"),Option("password"))
       val body: String = "body"
       val subject: String = "subject"
-      val email = new EMail("to2@localhost.com", "from@localhost.com", subject, body)
-      email.bcc="cc@localhost.com"
+      val bcc: String = "bcc@localhost.com"
+      val email =  EMail("to2@localhost.com", "from@localhost.com", subject, body,null,bcc,null,null,null)
       emailSender.send(email)
 
+      //Thread sleep 1000
 
-      Thread sleep 1000
-
-      val momsInbox = Mailbox.get("bcc@localhost.com")
+      val momsInbox = Mailbox.get(bcc)
       momsInbox.size() mustEqual 1
       val momsMsg = momsInbox.get(0)
 
